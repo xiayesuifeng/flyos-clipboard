@@ -24,42 +24,48 @@ mainwindow::mainwindow(QWidget *parent) :
     this->setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     this->setMaskColor(DBlurEffectWidget::LightColor);
 
-    QSystemTrayIcon *trayIcon = new QSystemTrayIcon;
+    trayIcon = new QSystemTrayIcon;
     trayIcon->setToolTip("剪切板");
     trayIcon->setIcon(QIcon(":/images/clipboard.png"));
     trayIcon->show();
 
     QMenu *menu = new QMenu;
 
-    QAction *mainAction = new QAction("主窗口");
-    QAction *aboutAction = new QAction("关于");
-    QAction *exitAction = new QAction("退出");
+    mainAction = new QAction("主窗口");
+    aboutAction = new QAction("关于");
+    exitAction = new QAction("退出");
 
     menu->addAction(mainAction);
+    menu->addSeparator();
     menu->addAction(aboutAction);
     menu->addAction(exitAction);
 
+    trayIcon->setContextMenu(menu);
+    
+    listWidget = new QListWidget(this);
+
+    listWidget->setGeometry(0, 30, 350, 470);
+
+    initConnect();
+}
+
+
+void mainwindow::initConnect() {
     connect(mainAction, &QAction::triggered, this, [=] {
         QSize size = qApp->desktop()->size();
         QRect rect = trayIcon->geometry();
         this->show();
     });
     connect(aboutAction, &QAction::triggered, this, [=] {
-        DAboutDialog *dialog = qApp->aboutDialog();
-        qDebug() << dialog;
 
     });
     connect(exitAction, &QAction::triggered, this, [=] {
         qApp->exit(0);
     });
 
-    trayIcon->setContextMenu(menu);
+    connect(clipboard, &QClipboard::dataChanged, this, &mainwindow::clipboardDataChanged);
+}
 
-    QListWidget *listWidget = new QListWidget(this);
-
-    listWidget->setGeometry(0, 30, 350, 470);
-
-    connect(clipboard, &QClipboard::dataChanged, this, [=] {
-        listWidget->addItem(clipboard->text());
-    });
+void mainwindow::clipboardDataChanged() {
+    listWidget->addItem(clipboard->text());
 }

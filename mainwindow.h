@@ -13,6 +13,8 @@
 #include <QtWidgets/QAction>
 #include <QMenu>
 #include <DAboutDialog>
+#include <QtWidgets/QSystemTrayIcon>
+#include <QtWidgets/QListWidget>
 
 DWIDGET_USE_NAMESPACE
 
@@ -23,7 +25,18 @@ public:
 
 private:
     QClipboard *clipboard;
+    QListWidget *listWidget;
+    QSystemTrayIcon *trayIcon;
 
+    QAction *mainAction;
+    QAction *aboutAction;
+    QAction *exitAction;
+
+    void initConnect();
+
+private slots:
+
+    void clipboardDataChanged();
 };
 
 
