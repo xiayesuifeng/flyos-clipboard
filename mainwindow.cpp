@@ -40,7 +40,7 @@ mainwindow::mainwindow(QWidget *parent) :
 
     trayIcon->setContextMenu(menu);
 
-    listWidget = new QListWidget(this);
+    listWidget = new ListWidget(this);
 
     listWidget->setGeometry(0, 30, 350, 470);
 
@@ -77,6 +77,7 @@ void mainwindow::initConnect() {
 
     connect(clipboard, &QClipboard::dataChanged, this, &mainwindow::clipboardDataChanged);
 }
+
 
 void mainwindow::clipboardDataChanged() {
     listWidget->addItem(clipboard->text());

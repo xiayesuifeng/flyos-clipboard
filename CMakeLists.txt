@@ -22,6 +22,6 @@ include_directories(${DTK_INCLUDE_DIRS})
 set(QRC_FILES
         images/images.qrc)
 
-set(SOURCE_FILES main.cpp mainwindow.cpp mainwindow.h)
+set(SOURCE_FILES main.cpp mainwindow.cpp mainwindow.h widgets/ListWidget.cpp widgets/ListWidget.h widgets/ListItem.cpp widgets/ListItem.h)
 add_executable(flyos-clipboard ${SOURCE_FILES} ${QRC_FILES})
 target_link_libraries(flyos-clipboard Qt5::Core Qt5::Gui Qt5::Widgets ${DTK_LIBRARIES})
