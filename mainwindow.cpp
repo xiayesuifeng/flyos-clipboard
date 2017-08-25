@@ -94,3 +94,9 @@ void mainwindow::showEvent(QShowEvent *event) {
 
     this->move(x, y);
 }
+
+void mainwindow::leaveEvent(QEvent *event) {
+    QWidget::leaveEvent(event);
+    this->hide();
+}
+
