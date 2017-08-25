@@ -52,6 +52,20 @@ void mainwindow::initConnect() {
     connect(mainAction, &QAction::triggered, this, [=] {
         QSize size = qApp->desktop()->size();
         QRect rect = trayIcon->geometry();
+        int x, y;
+        if ((size.height() - rect.y()) < this->height()){
+            x = rect.x() - this->height();
+        }else{
+            x = rect.x();
+        }
+
+        if ((size.width() - rect.x()) < this->width()){
+            y = rect.y() - this->width();
+        }else{
+            y = rect.y();
+        }
+
+        this->move(x, y);
         this->show();
     });
 
