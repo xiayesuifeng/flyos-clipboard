@@ -50,22 +50,6 @@ mainwindow::mainwindow(QWidget *parent) :
 
 void mainwindow::initConnect() {
     connect(mainAction, &QAction::triggered, this, [=] {
-        QSize size = qApp->desktop()->size();
-        QRect rect = trayIcon->geometry();
-        int x, y;
-        if ((size.height() - rect.y()) < this->height()){
-            x = rect.x() - this->height();
-        }else{
-            x = rect.x();
-        }
-
-        if ((size.width() - rect.x()) < this->width()){
-            y = rect.y() - this->width();
-        }else{
-            y = rect.y();
-        }
-
-        this->move(x, y);
         this->show();
     });
 
@@ -76,9 +60,35 @@ void mainwindow::initConnect() {
     connect(exitAction, &QAction::triggered, this, &mainwindow::close);
 
     connect(clipboard, &QClipboard::dataChanged, this, &mainwindow::clipboardDataChanged);
+    connect(trayIcon, &QSystemTrayIcon::activated, this, &mainwindow::trayIconActivated);
 }
 
 
 void mainwindow::clipboardDataChanged() {
     listWidget->addItem(clipboard->text());
+}
+
+void mainwindow::trayIconActivated(QSystemTrayIcon::ActivationReason reason) {
+    if (reason == QSystemTrayIcon::ActivationReason::Trigger)
+        this->show();
+}
+
+void mainwindow::showEvent(QShowEvent *event) {
+    DBlurEffectWidget::showEvent(event);
+    QSize size = qApp->desktop()->size();
+    QRect rect = trayIcon->geometry();
+    int x, y;
+    if ((size.height() - rect.y()) < this->height()){
+        x = rect.x() - this->height();
+    }else{
+        x = rect.x();
+    }
+
+    if ((size.width() - rect.x()) < this->width()){
+        y = rect.y() - this->width();
+    }else{
+        y = rect.y();
+    }
+
+    this->move(x, y);
 }

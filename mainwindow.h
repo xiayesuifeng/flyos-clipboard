@@ -39,6 +39,10 @@ private slots:
 
     void clipboardDataChanged();
 
+    void trayIconActivated(QSystemTrayIcon::ActivationReason reason);
+
+protected:
+    virtual void showEvent(QShowEvent *event);
 };
 
 
