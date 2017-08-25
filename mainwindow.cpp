@@ -5,8 +5,6 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QtGui/QClipboard>
-#include <QtWidgets/QListWidget>
-#include <QtWidgets/QSystemTrayIcon>
 #include <DApplication>
 #include <QDesktopWidget>
 
@@ -41,7 +39,7 @@ mainwindow::mainwindow(QWidget *parent) :
     menu->addAction(exitAction);
 
     trayIcon->setContextMenu(menu);
-    
+
     listWidget = new QListWidget(this);
 
     listWidget->setGeometry(0, 30, 350, 470);
@@ -56,12 +54,12 @@ void mainwindow::initConnect() {
         QRect rect = trayIcon->geometry();
         this->show();
     });
+
     connect(aboutAction, &QAction::triggered, this, [=] {
 
     });
-    connect(exitAction, &QAction::triggered, this, [=] {
-        qApp->exit(0);
-    });
+
+    connect(exitAction, &QAction::triggered, this, &mainwindow::close);
 
     connect(clipboard, &QClipboard::dataChanged, this, &mainwindow::clipboardDataChanged);
 }
