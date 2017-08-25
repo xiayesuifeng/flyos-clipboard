@@ -20,8 +20,22 @@ pkg_check_modules(DTK REQUIRED
 include_directories(${DTK_INCLUDE_DIRS})
 
 set(QRC_FILES
-        images/images.qrc)
+        images/images.qrc
+        styles/styles.qrc)
 
-set(SOURCE_FILES main.cpp mainwindow.cpp mainwindow.h widgets/ListWidget.cpp widgets/ListWidget.h widgets/ListItem.cpp widgets/ListItem.h)
+set(SOURCE_FILES
+        base/fileUtil.cpp
+        base/fileUtil.h
+
+        main.cpp
+        mainwindow.cpp
+        mainwindow.h
+
+        widgets/ListWidget.cpp
+        widgets/ListWidget.h
+
+        widgets/ListItem.cpp
+        widgets/ListItem.h)
+
 add_executable(flyos-clipboard ${SOURCE_FILES} ${QRC_FILES})
 target_link_libraries(flyos-clipboard Qt5::Core Qt5::Gui Qt5::Widgets ${DTK_LIBRARIES})

@@ -42,7 +42,7 @@ mainwindow::mainwindow(QWidget *parent) :
 
     listWidget = new ListWidget(this);
 
-    listWidget->setGeometry(0, 30, 350, 470);
+    listWidget->setGeometry(0, 0, 350, 500);
 
     initConnect();
 }

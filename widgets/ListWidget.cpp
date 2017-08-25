@@ -12,12 +12,12 @@ ListWidget::ListWidget(QWidget *parent) :
     QFrame *mainFrame = new QFrame(this);
     mainLayout = new QVBoxLayout(this);
     mainLayout->addStretch();
+    mainLayout->setSpacing(10);
     mainFrame->setLayout(mainLayout);
 
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setWidgetResizable(true);
     this->setStyleSheet("background:transparent");
-    this->setFixedWidth(330);
     this->setWidget(mainFrame);
 
 

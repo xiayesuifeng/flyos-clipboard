@@ -4,17 +4,21 @@
 
 #include <QtWidgets/QLabel>
 #include "ListItem.h"
+#include "../base/fileUtil.h"
 
 ListItem::ListItem(QString text, QWidget *parent) :
         QFrame(parent){
-    this->setFixedHeight(30);
+    this->setFixedSize(320,50);
+    this->setStyleSheet(ReadFile(":/styles/listItem.css"));
+
     QLabel *label = new QLabel(this);
-    label->setFixedSize(300, 20);
+    label->setFixedSize(300, 30);
     label->setText(text);
-    if (label->fontMetrics().height() > 30 ){
-        this->setFixedHeight(50);
-        label->setFixedSize(300, 40);
+    QStringList list = text.split("\n");
+    if (list.count() >=2){
+        this->setFixedHeight(80);
+        label->setFixedSize(300, 60);
     }
 
-    label->move(5, 5);
+    label->move(10, 10);
 }

@@ -11,7 +11,7 @@
 class ListItem : public QFrame{
     Q_OBJECT
 public:
-    ListItem(QString text ,QWidget *parent = nullptr);
+    explicit ListItem(QString text ,QWidget *parent = nullptr);
 
 };
 
