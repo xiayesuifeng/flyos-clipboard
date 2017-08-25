@@ -65,7 +65,9 @@ void mainwindow::initConnect() {
 
 
 void mainwindow::clipboardDataChanged() {
-    listWidget->addItem(clipboard->text());
+    QString text = clipboard->text();
+    if (!text.isEmpty())
+        listWidget->addItem(text);
 }
 
 void mainwindow::trayIconActivated(QSystemTrayIcon::ActivationReason reason) {
@@ -78,15 +80,15 @@ void mainwindow::showEvent(QShowEvent *event) {
     QSize size = qApp->desktop()->size();
     QRect rect = trayIcon->geometry();
     int x, y;
-    if ((size.height() - rect.y()) < this->height()){
+    if ((size.height() - rect.y()) < this->height()) {
         x = rect.x() - this->height();
-    }else{
+    } else {
         x = rect.x();
     }
 
-    if ((size.width() - rect.x()) < this->width()){
+    if ((size.width() - rect.x()) < this->width()) {
         y = rect.y() - this->width();
-    }else{
+    } else {
         y = rect.y();
     }
 
