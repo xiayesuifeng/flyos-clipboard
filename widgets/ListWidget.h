@@ -26,6 +26,10 @@ private:
 private slots:
 
     void removeItem(ListItem *item);
+
+signals:
+
+    void countChange(int count);
 };
 
 

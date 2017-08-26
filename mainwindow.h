@@ -37,8 +37,6 @@ private:
 
     QLabel *title;
 
-    int count =0 ;
-
     void initConnect();
 
 private slots:
@@ -52,6 +50,8 @@ protected:
     virtual void showEvent(QShowEvent *event);
 
     virtual bool event(QEvent *event);
+
+    void countChange(int count);
 
 };
 

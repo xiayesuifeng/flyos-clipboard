@@ -29,22 +29,28 @@ void ListWidget::addItem(QString text) {
     mainLayout->insertWidget(0, item, 0);
 
     connect(item, &ListItem::removeItem, this, &ListWidget::removeItem);
+
+    emit countChange(mainLayout->count() - 1);
 }
 
 void ListWidget::removeItem(ListItem *item) {
     item->setParent(nullptr);
     mainLayout->removeWidget(item);
     delete item;
+    emit countChange(mainLayout->count() - 1);
 }
 
 void ListWidget::clear() {
     QLayoutItem *item;
-    while ((item = mainLayout->takeAt(0)) != nullptr){
-        QWidget *widget = item->widget();
-        if (widget != nullptr){
-            widget->setParent(nullptr);
-            mainLayout->removeWidget(widget);
-            delete widget;
+    while (mainLayout->count() > 1){
+        if ((item = mainLayout->itemAt(0)) != nullptr) {
+            QWidget *widget = item->widget();
+            if (widget != nullptr) {
+                widget->setParent(nullptr);
+                mainLayout->removeWidget(widget);
+                delete widget;
+            }
         }
     }
+    emit countChange(mainLayout->count() - 1);
 }

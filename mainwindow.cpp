@@ -92,6 +92,8 @@ void mainwindow::initConnect() {
     connect(trayIcon, &QSystemTrayIcon::activated, this, &mainwindow::trayIconActivated);
 
     connect(clearAllButton, &QPushButton::clicked, this, &mainwindow::clearAllButtonClick);
+
+    connect(listWidget, &ListWidget::countChange, this, &mainwindow::countChange);
 }
 
 
@@ -99,9 +101,6 @@ void mainwindow::clipboardDataChanged() {
     QString text = clipboard->text();
     if (!text.isEmpty())
         listWidget->addItem(text);
-
-    count++;
-    title->setText(tr("共有%1条历史").arg(count));
 }
 
 void mainwindow::trayIconActivated(QSystemTrayIcon::ActivationReason reason) {
@@ -130,11 +129,17 @@ void mainwindow::showEvent(QShowEvent *event) {
 }
 
 bool mainwindow::event(QEvent *event) {
+#ifndef QT_DEBUG
     if (event->type() == event->WindowDeactivate)
         this->hide();
+#endif
     return QWidget::event(event);
 }
 
 void mainwindow::clearAllButtonClick() {
     listWidget->clear();
+}
+
+void mainwindow::countChange(int count) {
+    title->setText(tr("共有%1条历史").arg(count));
 }
