@@ -9,5 +9,7 @@
         <file>settings_white.svg</file>
         <file>trash_drak.svg</file>
         <file>trash_white.svg</file>
+        <file>copy_drak.svg</file>
+        <file>copy_white.svg</file>
     </qresource>
 </RCC>

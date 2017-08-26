@@ -7,14 +7,19 @@
 
 
 #include <QtWidgets/QFrame>
+#include <QtWidgets/QLabel>
 
 class ListItem : public QFrame {
 Q_OBJECT
 public:
     explicit ListItem(QString text, QWidget *parent = nullptr);
 
+private:
+    QLabel *label;
+
 private slots:
 
+    void copyButtonClick();
     void closeButtonClick();
 
 signals:

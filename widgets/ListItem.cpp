@@ -2,8 +2,10 @@
 // Created by linux on 17-8-25.
 //
 
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
+#include <QApplication>
+#include <QClipboard>
+
 #include "ListItem.h"
 #include "../base/fileUtil.h"
 
@@ -12,7 +14,7 @@ ListItem::ListItem(QString text, QWidget *parent) :
     this->setFixedSize(320,50);
     this->setStyleSheet(ReadFile(":/styles/listItem.css"));
 
-    QLabel *label = new QLabel(this);
+    label = new QLabel(this);
     label->setFixedSize(300, 30);
     label->setText(text);
     QStringList list = text.split("\n");
@@ -23,13 +25,24 @@ ListItem::ListItem(QString text, QWidget *parent) :
 
     label->move(10, 10);
 
+    QPushButton *copyButton = new QPushButton(this);
+    copyButton->setGeometry(305 - 6 -16 -6, 6, 16, 16);
+    copyButton->setStyleSheet(ReadFile(":/styles/copyButton.css"));
+
     QPushButton *closeButton = new QPushButton(this);
-    closeButton->setGeometry(290, 10, 18, 18);
+    closeButton->setGeometry(305 - 6, 6, 16, 16);
     closeButton->setStyleSheet(ReadFile(":/styles/closeButton.css"));
 
+    connect(copyButton, &QPushButton::clicked, this, &ListItem::copyButtonClick);
     connect(closeButton, &QPushButton::clicked, this, &ListItem::closeButtonClick);
+}
+
+
+void ListItem::copyButtonClick() {
+    qApp->clipboard()->setText(label->text());
 }
 
 void ListItem::closeButtonClick() {
     emit removeItem(this);
 }
+
