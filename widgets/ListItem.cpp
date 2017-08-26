@@ -5,6 +5,7 @@
 #include <QtWidgets/QPushButton>
 #include <QApplication>
 #include <QClipboard>
+#include <QtWidgets/QHBoxLayout>
 
 #include "ListItem.h"
 #include "../base/fileUtil.h"
@@ -25,13 +26,24 @@ ListItem::ListItem(QString text, QWidget *parent) :
 
     label->move(10, 10);
 
+    toolFrame = new QFrame(this);
+    toolFrame->setVisible(false);
+    toolFrame->setGeometry(0, 0, 320, 22);
+    QHBoxLayout *toolLayout = new QHBoxLayout(toolFrame);
+    toolLayout->setMargin(6);
+    toolLayout->setSpacing(6);
+    toolLayout->setAlignment(Qt::AlignRight);
+
     QPushButton *copyButton = new QPushButton(this);
-    copyButton->setGeometry(305 - 6 -16 -6, 6, 16, 16);
+    copyButton->setFixedSize(16, 16);
     copyButton->setStyleSheet(ReadFile(":/styles/copyButton.css"));
 
     QPushButton *closeButton = new QPushButton(this);
-    closeButton->setGeometry(305 - 6, 6, 16, 16);
+    closeButton->setFixedSize(16, 16);
     closeButton->setStyleSheet(ReadFile(":/styles/closeButton.css"));
+
+    toolLayout->addWidget(copyButton);
+    toolLayout->addWidget(closeButton);
 
     connect(copyButton, &QPushButton::clicked, this, &ListItem::copyButtonClick);
     connect(closeButton, &QPushButton::clicked, this, &ListItem::closeButtonClick);
@@ -46,3 +58,13 @@ void ListItem::closeButtonClick() {
     emit removeItem(this);
 }
 
+
+void ListItem::enterEvent(QEvent *event) {
+    QWidget::enterEvent(event);
+    toolFrame->setVisible(true);
+}
+
+void ListItem::leaveEvent(QEvent *event) {
+    QWidget::leaveEvent(event);
+    toolFrame->setVisible(false);
+}

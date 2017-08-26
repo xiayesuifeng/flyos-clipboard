@@ -17,10 +17,20 @@ public:
 private:
     QLabel *label;
 
+    QFrame *toolFrame;
+
+
 private slots:
 
     void copyButtonClick();
     void closeButtonClick();
+
+protected:
+    virtual void enterEvent(QEvent *event);
+
+    virtual void leaveEvent(QEvent *event);
+
+private:
 
 signals:
 
