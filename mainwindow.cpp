@@ -53,6 +53,7 @@ mainwindow::mainwindow(QWidget *parent) :
     QPushButton *settings = new QPushButton(this);
     settings->setFixedSize(20, 20);
     settings->setStyleSheet(ReadFile(":/styles/settingsButton.css"));
+    settings->setMenu(menu);
 
     topLayout->setMargin(10);
     topLayout->addWidget(title, 1, Qt::AlignCenter | Qt::AlignLeft);
