@@ -15,6 +15,7 @@ int main(int argc, char **argv) {
         app.setApplicationDisplayName("剪切板");
         app.setApplicationName("flyos-clipboard");
         app.setApplicationVersion("0.0.1");
+        app.setOrganizationName("flyos");
         app.setOrganizationDomain("fly-os.xyz");
         app.setApplicationDescription(DApplication::translate("MainWindow", "FlyOS剪切板") + "\n");
         app.setProductIcon(QPixmap(":/images/logo.png"));

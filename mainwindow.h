@@ -53,6 +53,8 @@ protected:
 
     void countChange(int count);
 
+    virtual void closeEvent(QCloseEvent *event);
+
 };
 
 

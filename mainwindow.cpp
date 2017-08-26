@@ -9,10 +9,13 @@
 #include <DApplication>
 #include <QDesktopWidget>
 
-#include <QDebug>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QMessageBox>
+
+#include <QDebug>
+#include <QtCore/QSettings>
+#include <QtCore/QStandardPaths>
 
 mainwindow::mainwindow(QWidget *parent) :
         DBlurEffectWidget(parent),
@@ -22,7 +25,6 @@ mainwindow::mainwindow(QWidget *parent) :
     this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
     this->setAttribute(Qt::WA_TranslucentBackground);
 
-//    this->setGeometry(0, 30, 350, 470);
     this->setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     this->setMaskColor(DBlurEffectWidget::LightColor);
 
@@ -68,8 +70,8 @@ mainwindow::mainwindow(QWidget *parent) :
     listWidget = new ListWidget(this);
 
     mainLayout->setMargin(0);
-    mainLayout->addLayout(topLayout,0);
-    mainLayout->addWidget(listWidget,1);
+    mainLayout->addLayout(topLayout, 0);
+    mainLayout->addWidget(listWidget, 1);
 
     setLayout(mainLayout);
 
@@ -142,4 +144,30 @@ void mainwindow::clearAllButtonClick() {
 
 void mainwindow::countChange(int count) {
     title->setText(tr("共有%1条历史").arg(count));
+}
+
+void mainwindow::closeEvent(QCloseEvent *event) {
+    QWidget::closeEvent(event);
+    QString confPath = (QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first());
+    QString autoPath = confPath;
+    autoPath += "/autostart/flyos-clipboard.desktop";
+
+    QString configPath = tr("%1/%2/%3/%4.conf")
+            .arg(configPath)
+            .arg(QApplication::organizationName())
+            .arg(QApplication::applicationName())
+            .arg(QApplication::applicationName());
+
+    QSettings conf(configPath, QSettings::IniFormat);
+    if (!conf.value("setting/autoStart", false).toBool()) {
+        if (QMessageBox::information(this, "自动启动剪切板?", "是否在启动时自动启动剪切板", "取消", "不启动", "启动", 2) == 2) {
+            if (QFile::exists("/usr/local/share/applications/flyos-clipboard.desktop"))
+                QFile::copy("/usr/local/share/applications/flyos-clipboard.desktop", autoPath);
+            else
+                QFile::copy("/usr/share/applications/flyos-clipboard.desktop", autoPath);
+
+            conf.setValue("setting/autoStart", true);
+        }
+    }
+
 }
