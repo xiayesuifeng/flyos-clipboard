@@ -121,8 +121,8 @@ void mainwindow::showEvent(QShowEvent *event) {
     this->move(x, y);
 }
 
-void mainwindow::leaveEvent(QEvent *event) {
-    QWidget::leaveEvent(event);
-    this->hide();
+bool mainwindow::event(QEvent *event) {
+    if (event->type() == event->WindowDeactivate)
+        this->hide();
+    return QWidget::event(event);
 }
-

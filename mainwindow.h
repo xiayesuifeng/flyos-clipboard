@@ -48,7 +48,7 @@ private slots:
 protected:
     virtual void showEvent(QShowEvent *event);
 
-    virtual void leaveEvent(QEvent *event);
+    virtual bool event(QEvent *event);
 
 };
 
