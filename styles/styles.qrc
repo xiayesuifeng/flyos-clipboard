@@ -1,0 +1,10 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/styles">
+        <file>listItem.css</file>
+        <file>closeButton.css</file>
+        <file>settingsButton.css</file>
+        <file>clearAllButton.css</file>
+        <file>copyButton.css</file>
+    </qresource>
+</RCC>
