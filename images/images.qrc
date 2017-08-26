@@ -1,6 +1,11 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/images">
-        <file>clipboard.png</file>
+        <file>clipboard.svg</file>
+        <file>logo.png</file>
+        <file>close_drak.svg</file>
+        <file>close_white.svg</file>
+        <file>settings_drak.svg</file>
+        <file>settings_white.svg</file>
     </qresource>
 </RCC>

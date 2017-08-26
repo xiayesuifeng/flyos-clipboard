@@ -3,6 +3,7 @@
 //
 
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
 #include "ListItem.h"
 #include "../base/fileUtil.h"
 
@@ -21,4 +22,14 @@ ListItem::ListItem(QString text, QWidget *parent) :
     }
 
     label->move(10, 10);
+
+    QPushButton *closeButton = new QPushButton(this);
+    closeButton->setGeometry(290, 10, 20, 20);
+    closeButton->setStyleSheet(ReadFile(":/styles/closeButton.css"));
+
+    connect(closeButton, &QPushButton::clicked, this, &ListItem::closeButtonClick);
+}
+
+void ListItem::closeButtonClick() {
+    emit removeItem(this);
 }

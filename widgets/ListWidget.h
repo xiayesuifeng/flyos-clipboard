@@ -7,17 +7,23 @@
 
 
 #include <QtWidgets/QScrollArea>
+#include "ListItem.h"
+#include <QList>
+
 
 class ListWidget : public QScrollArea{
     Q_OBJECT
 public:
-    ListWidget(QWidget *parent = nullptr);
+    explicit ListWidget(QWidget *parent = nullptr);
 
     void addItem(QString text);
 
 private:
     QVBoxLayout *mainLayout;
 
+private slots:
+
+    void removeItem(ListItem *item);
 };
 
 

@@ -8,11 +8,18 @@
 
 #include <QtWidgets/QFrame>
 
-class ListItem : public QFrame{
-    Q_OBJECT
+class ListItem : public QFrame {
+Q_OBJECT
 public:
-    explicit ListItem(QString text ,QWidget *parent = nullptr);
+    explicit ListItem(QString text, QWidget *parent = nullptr);
 
+private slots:
+
+    void closeButtonClick();
+
+signals:
+
+    void removeItem(ListItem *item);
 };
 
 

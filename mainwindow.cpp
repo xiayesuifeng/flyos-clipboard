@@ -3,12 +3,16 @@
 //
 
 #include "mainwindow.h"
+#include "base/fileUtil.h"
 #include <QApplication>
 #include <QtGui/QClipboard>
 #include <DApplication>
 #include <QDesktopWidget>
 
 #include <QDebug>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QHBoxLayout>
 
 mainwindow::mainwindow(QWidget *parent) :
         DBlurEffectWidget(parent),
@@ -18,13 +22,13 @@ mainwindow::mainwindow(QWidget *parent) :
     this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
     this->setAttribute(Qt::WA_TranslucentBackground);
 
-    this->setGeometry(0, 30, 350, 470);
+//    this->setGeometry(0, 30, 350, 470);
     this->setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     this->setMaskColor(DBlurEffectWidget::LightColor);
 
     trayIcon = new QSystemTrayIcon;
     trayIcon->setToolTip("剪切板");
-    trayIcon->setIcon(QIcon(":/images/clipboard.png"));
+    trayIcon->setIcon(QIcon(":/images/clipboard.svg"));
     trayIcon->show();
 
     QMenu *menu = new QMenu;
@@ -40,9 +44,27 @@ mainwindow::mainwindow(QWidget *parent) :
 
     trayIcon->setContextMenu(menu);
 
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+
+    QHBoxLayout *topLayout = new QHBoxLayout(this);
+
+    title = new QLabel("共有0条历史", this);
+
+    QPushButton *settings = new QPushButton(this);
+    settings->setFixedSize(20, 20);
+    settings->setStyleSheet(ReadFile(":/styles/settingsButton.css"));
+
+    topLayout->setMargin(10);
+    topLayout->addWidget(title, 1, Qt::AlignCenter | Qt::AlignLeft);
+    topLayout->addWidget(settings, 0, Qt::AlignRight);
+
     listWidget = new ListWidget(this);
 
-    listWidget->setGeometry(0, 0, 350, 500);
+    mainLayout->setMargin(0);
+    mainLayout->addLayout(topLayout,0);
+    mainLayout->addWidget(listWidget,1);
+
+    setLayout(mainLayout);
 
     initConnect();
 }
@@ -68,6 +90,9 @@ void mainwindow::clipboardDataChanged() {
     QString text = clipboard->text();
     if (!text.isEmpty())
         listWidget->addItem(text);
+
+    count++;
+    title->setText(tr("共有%1条历史").arg(count));
 }
 
 void mainwindow::trayIconActivated(QSystemTrayIcon::ActivationReason reason) {

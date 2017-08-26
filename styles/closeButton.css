@@ -1,0 +1,19 @@
+QPushButton[flat="true"] {
+  border: 2px;
+  outline: none;
+  color: #eaeaea;
+}
+
+QPushButton {
+  border-image: url(":/images/close_drak.svg");
+}
+
+QPushButton::hover {
+  border-image: url(":/images/close_drak.svg");
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+QPushBUtton::pressed {
+  border-image: url(":/images/close_drak.svg");
+  background-color: rgba(255, 255, 255, 0.1);
+}

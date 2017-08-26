@@ -33,6 +33,10 @@ private:
     QAction *aboutAction;
     QAction *exitAction;
 
+    QLabel *title;
+
+    int count =0 ;
+
     void initConnect();
 
 private slots:
