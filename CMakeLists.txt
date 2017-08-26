@@ -42,4 +42,4 @@ target_link_libraries(flyos-clipboard Qt5::Core Qt5::Gui Qt5::Widgets ${DTK_LIBR
 
 install(TARGETS flyos-clipboard RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 install(FILES flyos-clipboard.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
-install(FILES images/logo.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/64x64/apps/flyos-clipboard.png)
+install(FILES images/logo.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/64x64/apps RENAME flyos-clipboard.png)
