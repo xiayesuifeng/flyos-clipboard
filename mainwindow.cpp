@@ -50,13 +50,19 @@ mainwindow::mainwindow(QWidget *parent) :
 
     title = new QLabel("共有0条历史", this);
 
+    clearAllButton = new QPushButton(this);
+    clearAllButton->setFixedSize(16, 16);
+    clearAllButton->setStyleSheet(ReadFile(":/styles/clearAllButton.css"));
+
     QPushButton *settings = new QPushButton(this);
-    settings->setFixedSize(20, 20);
+    settings->setFixedSize(18, 18);
     settings->setStyleSheet(ReadFile(":/styles/settingsButton.css"));
     settings->setMenu(menu);
 
     topLayout->setMargin(10);
+    topLayout->setSpacing(10);
     topLayout->addWidget(title, 1, Qt::AlignCenter | Qt::AlignLeft);
+    topLayout->addWidget(clearAllButton, 0, Qt::AlignRight);
     topLayout->addWidget(settings, 0, Qt::AlignRight);
 
     listWidget = new ListWidget(this);
@@ -84,6 +90,8 @@ void mainwindow::initConnect() {
 
     connect(clipboard, &QClipboard::dataChanged, this, &mainwindow::clipboardDataChanged);
     connect(trayIcon, &QSystemTrayIcon::activated, this, &mainwindow::trayIconActivated);
+
+    connect(clearAllButton, &QPushButton::clicked, this, &mainwindow::clearAllButtonClick);
 }
 
 
@@ -125,4 +133,8 @@ bool mainwindow::event(QEvent *event) {
     if (event->type() == event->WindowDeactivate)
         this->hide();
     return QWidget::event(event);
+}
+
+void mainwindow::clearAllButtonClick() {
+    listWidget->clear();
 }

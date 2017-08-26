@@ -18,6 +18,8 @@ public:
 
     void addItem(QString text);
 
+    void clear();
+
 private:
     QVBoxLayout *mainLayout;
 

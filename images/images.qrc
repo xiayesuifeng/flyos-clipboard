@@ -7,5 +7,7 @@
         <file>close_white.svg</file>
         <file>settings_drak.svg</file>
         <file>settings_white.svg</file>
+        <file>trash_drak.svg</file>
+        <file>trash_white.svg</file>
     </qresource>
 </RCC>

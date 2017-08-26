@@ -5,6 +5,8 @@
 #include <QtWidgets/QVBoxLayout>
 #include "ListWidget.h"
 
+#include <QDebug>
+
 ListWidget::ListWidget(QWidget *parent) :
         QScrollArea(parent) {
 
@@ -18,6 +20,7 @@ ListWidget::ListWidget(QWidget *parent) :
     this->setWidgetResizable(true);
     this->setStyleSheet("background:transparent");
     this->setWidget(mainFrame);
+
 }
 
 void ListWidget::addItem(QString text) {
@@ -29,4 +32,19 @@ void ListWidget::addItem(QString text) {
 }
 
 void ListWidget::removeItem(ListItem *item) {
+    item->setParent(nullptr);
+    mainLayout->removeWidget(item);
+    delete item;
+}
+
+void ListWidget::clear() {
+    QLayoutItem *item;
+    while ((item = mainLayout->takeAt(0)) != nullptr){
+        QWidget *widget = item->widget();
+        if (widget != nullptr){
+            widget->setParent(nullptr);
+            mainLayout->removeWidget(widget);
+            delete widget;
+        }
+    }
 }

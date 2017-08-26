@@ -33,6 +33,8 @@ private:
     QAction *aboutAction;
     QAction *exitAction;
 
+    QPushButton *clearAllButton;
+
     QLabel *title;
 
     int count =0 ;
@@ -42,8 +44,9 @@ private:
 private slots:
 
     void clipboardDataChanged();
-
     void trayIconActivated(QSystemTrayIcon::ActivationReason reason);
+
+    void clearAllButtonClick();
 
 protected:
     virtual void showEvent(QShowEvent *event);

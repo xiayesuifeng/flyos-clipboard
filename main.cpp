@@ -18,6 +18,7 @@ int main(int argc, char **argv) {
         app.setOrganizationDomain("fly-os.xyz");
         app.setApplicationDescription(DApplication::translate("MainWindow", "FlyOS剪切板") + "\n");
         app.setProductIcon(QPixmap(":/images/logo.png"));
+        app.setWindowIcon(QIcon(":/images/logo.png"));
 
         mainwindow window;
         return app.exec();
