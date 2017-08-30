@@ -152,11 +152,19 @@ void mainwindow::closeEvent(QCloseEvent *event) {
     QString autoPath = confPath;
     autoPath += "/autostart/flyos-clipboard.desktop";
 
-    QString configPath = tr("%1/%2/%3/%4.conf")
-            .arg(configPath)
-            .arg(QApplication::organizationName())
-            .arg(QApplication::applicationName())
-            .arg(QApplication::applicationName());
+//    qDebug() << confPath;
+//    QString configPath = tr("%1/%2/%3/%4.conf")
+//            .arg(configPath)
+//            .arg(QApplication::organizationName())
+//            .arg(QApplication::applicationName())
+//            .arg(QApplication::applicationName());
+
+    QString configPath = confPath
+                         + "/" + QApplication::organizationName()
+                         + "/" + QApplication::applicationName()
+                         + "/" + QApplication::applicationName()
+                         + ".conf";
+//    qDebug() << configPath;
 
     QSettings conf(configPath, QSettings::IniFormat);
     if (!conf.value("setting/autoStart", false).toBool()) {
