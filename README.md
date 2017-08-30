@@ -24,7 +24,7 @@
 
 ## Usage (使用)
 
-* flyos-cliboard 或者 点击启动器上的标题栏图标
+* flyos-cliboard 或者 点击启动器上的剪切板
 
 ## License
 
