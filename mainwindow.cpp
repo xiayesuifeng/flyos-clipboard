@@ -4,6 +4,7 @@
 
 #include "mainwindow.h"
 #include "base/fileUtil.h"
+#include "widgets/ExitDialog.h"
 #include <QApplication>
 #include <QtGui/QClipboard>
 #include <DApplication>
@@ -149,10 +150,7 @@ void mainwindow::countChange(int count) {
 void mainwindow::closeEvent(QCloseEvent *event) {
     QWidget::closeEvent(event);
     QString confPath = (QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first());
-    QString autoPath = confPath;
-    autoPath += "/autostart/flyos-clipboard.desktop";
 
-//    qDebug() << confPath;
 //    QString configPath = tr("%1/%2/%3/%4.conf")
 //            .arg(configPath)
 //            .arg(QApplication::organizationName())
@@ -164,18 +162,12 @@ void mainwindow::closeEvent(QCloseEvent *event) {
                          + "/" + QApplication::applicationName()
                          + "/" + QApplication::applicationName()
                          + ".conf";
-//    qDebug() << configPath;
+
+    ExitDialog *dialog = new ExitDialog(this);
 
     QSettings conf(configPath, QSettings::IniFormat);
-    if (!conf.value("setting/autoStart", false).toBool()) {
-        if (QMessageBox::information(this, "自动启动剪切板?", "是否在启动时自动启动剪切板", "取消", "不启动", "启动", 2) == 2) {
-            if (QFile::exists("/usr/local/share/applications/flyos-clipboard.desktop"))
-                QFile::copy("/usr/local/share/applications/flyos-clipboard.desktop", autoPath);
-            else
-                QFile::copy("/usr/share/applications/flyos-clipboard.desktop", autoPath);
-
-            conf.setValue("setting/autoStart", true);
-        }
+    if (!conf.value("setting/autoStart", false).toBool() && conf.value("setting/tipDialog", false).toBool()) {
+        dialog->exec();
     }
 
 }
