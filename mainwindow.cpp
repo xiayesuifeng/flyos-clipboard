@@ -5,6 +5,7 @@
 #include "mainwindow.h"
 #include "base/fileUtil.h"
 #include "widgets/ExitDialog.h"
+#include "widgets/AboutDialog.h"
 #include <QApplication>
 #include <QtGui/QClipboard>
 #include <DApplication>
@@ -86,7 +87,8 @@ void mainwindow::initConnect() {
     });
 
     connect(aboutAction, &QAction::triggered, this, [=] {
-
+        AboutDialog *aboutDialog = new AboutDialog;
+        aboutDialog->exec();
     });
 
     connect(exitAction, &QAction::triggered, this, &mainwindow::close);

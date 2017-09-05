@@ -35,7 +35,7 @@ set(SOURCE_FILES
         widgets/ListWidget.h
 
         widgets/ListItem.cpp
-        widgets/ListItem.h widgets/ExitDialog.cpp widgets/ExitDialog.h)
+        widgets/ListItem.h widgets/ExitDialog.cpp widgets/ExitDialog.h widgets/AboutDialog.cpp widgets/AboutDialog.h)
 
 add_executable(flyos-clipboard ${SOURCE_FILES} ${QRC_FILES})
 target_link_libraries(flyos-clipboard Qt5::Core Qt5::Gui Qt5::Widgets ${DTK_LIBRARIES})

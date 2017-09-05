@@ -14,12 +14,17 @@ int main(int argc, char **argv) {
         app.loadTranslator();
         app.setApplicationDisplayName("剪切板");
         app.setApplicationName("flyos-clipboard");
-        app.setApplicationVersion("0.0.1");
+        app.setApplicationVersion("0.0.2");
         app.setOrganizationName("flyos");
         app.setOrganizationDomain("fly-os.xyz");
-        app.setApplicationDescription(DApplication::translate("MainWindow", "FlyOS剪切板") + "\n");
-        app.setProductIcon(QPixmap(":/images/logo.png"));
+//        app.setApplicationDescription(DApplication::translate("MainWindow", "FlyOS剪切板") + "\n");
+//        app.setProductIcon(QPixmap(":/images/logo.png"));
         app.setWindowIcon(QIcon(":/images/logo.png"));
+
+        app.setProperty("productName", "飞龙剪切板");
+        app.setProperty("version", "0.0.2");
+        app.setProperty("description", "飞龙剪切板是一款记录剪切板历史的软件");
+        app.setProperty("productrtIcon", ":/images/logo.png");
 
         mainwindow window;
         return app.exec();
