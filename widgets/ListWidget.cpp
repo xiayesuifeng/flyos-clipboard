@@ -24,11 +24,16 @@ ListWidget::ListWidget(QWidget *parent) :
 }
 
 void ListWidget::addItem(QString text) {
+    if (isCopy){
+        isCopy = false;
+        return;
+    }
     ListItem *item = new ListItem(text, this);
 
     mainLayout->insertWidget(0, item, 0);
 
     connect(item, &ListItem::removeItem, this, &ListWidget::removeItem);
+    connect(item, &ListItem::setIsCopy, this, &ListWidget::setIsCopy);
 
     emit countChange(mainLayout->count() - 1);
 }
@@ -53,4 +58,8 @@ void ListWidget::clear() {
         }
     }
     emit countChange(mainLayout->count() - 1);
+}
+
+void ListWidget::setIsCopy(bool isCopy) {
+    ListWidget::isCopy = isCopy;
 }

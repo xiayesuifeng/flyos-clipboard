@@ -51,6 +51,7 @@ ListItem::ListItem(QString text, QWidget *parent) :
 
 
 void ListItem::copyButtonClick() {
+    emit setIsCopy(true);
     qApp->clipboard()->setText(label->text());
 }
 

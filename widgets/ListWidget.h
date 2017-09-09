@@ -23,13 +23,19 @@ public:
 private:
     QVBoxLayout *mainLayout;
 
+    bool isCopy = false;
+
 private slots:
 
     void removeItem(ListItem *item);
 
+    void setIsCopy(bool isCopy);
+
+
 signals:
 
     void countChange(int count);
+
 };
 
 

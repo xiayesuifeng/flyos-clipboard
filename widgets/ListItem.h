@@ -35,6 +35,9 @@ private:
 signals:
 
     void removeItem(ListItem *item);
+
+    void setIsCopy(bool isCopy);
+
 };
 
 
